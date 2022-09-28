@@ -1,12 +1,21 @@
 from secrets import choice
+from unicodedata import decimal
 import streamlit as st
 import requests
-##TEST
-from client import df
+import pandas as pd
+##Calculador
+from client import df,fbtc,feth,fdoge,fbn,Vbtc,Veth,Vdoge,Vbnb,volbtc,volbnb,voldoge,voleth,volumeA,volumeB,volumeC,volumeD
 from client import BA,BB,BC,BD,BE,BF,EA,EB,EC,ED,EE,EF,EG,bA,bB,bC,bD,bE,bF,bG,DA,DB,DC,DD,DE,DF,DG
+##Calculador
 
-##TEST
-#MAIN
+#Grafico
+#from client import fige,figd,figbn
+#from datetime import datetime
+#import json
+import plotly.graph_objects as go
+
+##Grafico
+#MAINn
 
 def main():
     menu = ["Home","Calculador"]
@@ -149,46 +158,75 @@ def main():
         st.success("Convertir {} a {}".format(search_term,moneda))
         st.write(f"  {result()} {simb()} ")
     else :
-      
+        
         st.subheader("Cryptomonedas")
-        if st.checkbox("Bitcoin"):
+        a1,a2,a3=st.columns(3)
+        a1.metric("wind","9","-8")
+        a2.metric("wind","9","-8")
+        a3.metric("wind","9","-8")
+
+        with st.form(key="my_form"):
+            nab1,nab2,nab3 = st.columns([3,2,1])
+            criptosbtc=["Bitcoin","Ethereum","Dogecoin","Binance Coin"]
         
-            with st.form(key="f"):
-                nab1,nab2,nab3 = st.columns([3,2,1])
-                meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiempre","Octubre","Noviembre","Diciembre"]
-                numeros=["USD","GBP","EUR","JPY","AUD","PERP","BRZ","BTC","ARS","CLP"]
-                with nab2:
-                    divisd=st.select_slider("Select",numeros)
-                submit_searchd = st.form_submit_button()
-                with nab1:
-                    search_term1 =st.select_slider("Select Date :",meses)
-                    if search_term1 =="Enero" and divisd =="USD":
-                        return st.write("nonde")
-                    if search_term1 =="Febrero"and divisd =="JPY":
-                        return st.write("none")
+            with nab1:
+                search_term =st.selectbox("Select Cripto :",criptosbtc)
+                    #BITCOIN               
+                if search_term =="Bitcoin":
+                        hola="USD"
+                        d=f"{float(BA):,.2f}"  
+                        m=Vbtc
+                        v="Vol. 24h(BTC)"
+                        st.write(fbtc())
+                        Vol=f"{float(volumeA):,.2f}"
+                if search_term =="Dogecoin":  
+                        hola="USD"
+                        d=f"{float(DA):,.2f}"
+                        m=Vdoge
+                        v="Vol. 24h(DOGE)"
+                        Vol=f"{float(volumeD):,.2f}"
+                        st.write(fdoge())
+                if search_term =="Ethereum":  
+                        hola="USD"
+                        d=f"{float(EA):,.2f}"
+                        m=Veth
+                        v="Vol. 24h(ETH)"
+                        st.write(feth())
+                        Vol=f"{float(volumeB):,.2f}"
+                if search_term =="Binance Coin": 
+                        st.write(fbn())
+                        d=f"{float(bA):,.2f}"
+                        hola="USD"
+                        m=Vbnb 
+                        v="Vol. 24h(BNB)"
+                        Vol=f"{float(volumeC):,.2f}"
+                        
                 
-                with nab3:
+            with nab2:
+                st.metric(hola,d,m)
                 
-                    submit_searchd = st.form_submit_button()
-                    
                 
-                    
+            with nab3:
+                st.metric(v,Vol)
+        
+            submit_search = st.form_submit_button()  
+                 
         if st.checkbox("Dogecoin"):
-            dforder=df.sort_values(by=["price"],ascending=False)
-            st.dataframe(dforder)
-        
+                st.write(fdoge())
+            
         if st.checkbox("Ethereum"):
-            dforder=df.sort_values(by=["price"],ascending=False)
-            st.dataframe(dforder)
-        
+                st.write(feth())
+            
         if st.checkbox("Binance Coin"):
-            dforder=df.sort_values(by=["price"],ascending=False)
-            st.dataframe(dforder)
+                st.write(fbn())
+
+        #rowa
         
 
+
         if st.checkbox("Estadisticas crypto"):
-            dforder=df.sort_values(by=["price"],ascending=False)
-            st.dataframe(dforder)
+                #dforder=df.sort_values(by=["price"],ascending=False)
+                st.dataframe(df)
 
 
 
