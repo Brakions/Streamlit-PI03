@@ -6,6 +6,8 @@ import pandas as pd
 ##Calculador
 from client import df,fbtc,feth,fdoge,fbn,Vbtc,Veth,Vdoge,Vbnb,volbtc,volbnb,voldoge,voleth,volumeA,volumeB,volumeC,volumeD
 from client import BA,BB,BC,BD,BE,BF,EA,EB,EC,ED,EE,EF,EG,bA,bB,bC,bD,bE,bF,bG,DA,DB,DC,DD,DE,DF,DG
+from client import varianzabnb,varianzabtc,varianzadoge,varianzaeth,desviacionbtc,desviaciondoge,desviacioneth,desviacionbnbn
+from client import rollh
 ##Calculador
 
 #Grafico
@@ -160,10 +162,7 @@ def main():
     else :
         
         st.subheader("Cryptomonedas")
-        a1,a2,a3=st.columns(3)
-        a1.metric("wind","9","-8")
-        a2.metric("wind","9","-8")
-        a3.metric("wind","9","-8")
+        
 
         with st.form(key="my_form"):
             nab1,nab2,nab3 = st.columns([3,2,1])
@@ -176,21 +175,21 @@ def main():
                         hola="USD"
                         d=f"{float(BA):,.2f}"  
                         m=Vbtc
-                        v="Vol. 24h(BTC)"
+                        v="Vol. 24h(USD)"
                         st.write(fbtc())
                         Vol=f"{float(volumeA):,.2f}"
                 if search_term =="Dogecoin":  
                         hola="USD"
                         d=f"{float(DA):,.2f}"
                         m=Vdoge
-                        v="Vol. 24h(DOGE)"
+                        v="Vol. 24h(USD)"
                         Vol=f"{float(volumeD):,.2f}"
                         st.write(fdoge())
                 if search_term =="Ethereum":  
                         hola="USD"
                         d=f"{float(EA):,.2f}"
                         m=Veth
-                        v="Vol. 24h(ETH)"
+                        v="Vol. 24h(USD)"
                         st.write(feth())
                         Vol=f"{float(volumeB):,.2f}"
                 if search_term =="Binance Coin": 
@@ -198,7 +197,7 @@ def main():
                         d=f"{float(bA):,.2f}"
                         hola="USD"
                         m=Vbnb 
-                        v="Vol. 24h(BNB)"
+                        v="Vol. 24h(USD)"
                         Vol=f"{float(volumeC):,.2f}"
                         
                 
@@ -208,17 +207,37 @@ def main():
                 
             with nab3:
                 st.metric(v,Vol)
-        
-            submit_search = st.form_submit_button()  
-                 
-        if st.checkbox("Dogecoin"):
-                st.write(fdoge())
+            submit_search = st.form_submit_button()
+        if search_term=="Bitcoin":    
+            a1,a2,a3=st.columns(3)
+            a1.metric("Varianza",f"{float(varianzabtc):,.2f}")
+            a2.metric("Desviacion Tipica",f"{float(desviacionbtc):,.2f}")
+            #a3.metric("Media movil",st.write(rollh),"-8")
+        if search_term=="Ethereum":    
+            a1,a2,a3=st.columns(3)
+            a1.metric("Varianza",f"{float(varianzaeth):,.2f}")
+            a2.metric("Desviacion Tipica",f"{float(desviacioneth):,.2f}")
+            #a3.metric("Media movil","9","-8")
+        if search_term=="Dogecoin":    
+            a1,a2,a3=st.columns(3)
+            a1.metric("Varianza",f"{float(varianzadoge):,.2f}")
+            a2.metric("Desviacion Tipica",f"{float(desviaciondoge):,.2f}")
+            #a3.metric("Media movil","9","-8")
+        if search_term=="Binance Coin":    
+            a1,a2,a3=st.columns(3)
+            a1.metric("Varianza",f"{float(varianzabnb):,.2f}")
+            a2.metric("Desviacion Tipica",f"{float(desviacionbnbn):,.2f}")
+           # a3.metric("Media movil","9","-8")
+              
+               
+        #if st.checkbox("Dogecoin"):
+                #st.write(fdoge())
             
-        if st.checkbox("Ethereum"):
-                st.write(feth())
+        #if st.checkbox("Ethereum"):
+                #st.write(feth())
             
-        if st.checkbox("Binance Coin"):
-                st.write(fbn())
+        #if st.checkbox("Binance Coin"):
+                #st.write(fbn())
 
         #rowa
         

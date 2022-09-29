@@ -3,6 +3,7 @@ from unicodedata import decimal
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 api_url = "https://ftx.com/api"
 api= "/markets"
@@ -290,6 +291,11 @@ dh["date"] = pd.to_datetime(
 )
 #Removemos columnas innecesarias 
 dh.drop(["startTime","time"],axis=1, inplace=True)
+#Media movil BTC USD
+rollh=dh["close"].rolling(window=7).mean()
+#Varianza y desviacion btc
+varianzabtc=dh["close"].var()
+desviacionbtc=np.sqrt(varianzabtc)
 #Volumen total de BTC en las ultimas 24hrs
 volbtc=(dh["volume"].iloc[-1])
 #cambio de % con respecto al dia anterior BTC 
@@ -321,11 +327,20 @@ def fbtc():
                 open=dh["open"],
                 high=dh["high"],
                 low=dh["low"],
-                close=dh["close"]
+                close=dh["close"],
+                name="Candlestick(Precio)"
             )
         )
+        fig.add_trace(
+                go.Scatter(
+                    x=dh["date"],
+                    name="Media Movil(7d)",
+                    y=rollh,
+                    line = dict(color='royalblue')
+                )
+        )
         return fig
-        fig.show()
+        
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -364,6 +379,11 @@ dhe["date"] = pd.to_datetime(
 )
 #Removemos columnas innecesarias 
 dhe.drop(["startTime","time"],axis=1, inplace=True)
+#Media movil ETH USD
+rolleth=dhe["close"].rolling(window=7).mean()
+#Varianza y desviacion ETH
+varianzaeth=dhe["close"].var()
+desviacioneth=np.sqrt(varianzaeth)
 #Volumen total de BTC en las ultimas 24hrs
 voleth=(dhe["volume"].iloc[-1])
 #cambio de % con respecto al dia anterior ETH 
@@ -392,11 +412,20 @@ def feth():
                 open=dhe["open"],
                 high=dhe["high"],
                 low=dhe["low"],
-                close=dhe["close"]
+                close=dhe["close"],
+                name="Candlestick(Precio)"
             )
         )
+        fige.add_trace(
+                go.Scatter(
+                    x=dhe["date"],
+                    name="Media Movil(7d)",
+                    y=rolleth,
+                    line = dict(color='royalblue')
+                )
+        )
         return fige
-        fige.show()
+        
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -435,7 +464,12 @@ dhd["date"] = pd.to_datetime(
 )
 #Removemos columnas innecesarias 
 dhd.drop(["startTime","time"],axis=1, inplace=True)
-#Volumen total de BTC en las ultimas 24hrs
+#Media movil DOGE USD
+rolldoge=dhd["close"].rolling(window=7).mean()
+#Varianza y desviacion DOGE
+varianzadoge=dhd["close"].var()
+desviaciondoge=np.sqrt(varianzadoge)
+#Volumen total de DOGE en las ultimas 24hrs
 voldoge=(dhd["volume"].iloc[-1])
 #cambio de % con respecto al dia anterior DOGE 
 Vdoge=round(((dhd["close"].iloc[-1]-dhd["open"].iloc[-1])*100)/dhd["open"].iloc[-1],2)
@@ -463,11 +497,20 @@ def fdoge():
                 open=dhd["open"],
                 high=dhd["high"],
                 low=dhd["low"],
-                close=dhd["close"]
+                close=dhd["close"],
+                name="Candlestick(Precio)"
             )
         )
+        figd.add_trace(
+                go.Scatter(
+                    x=dhd["date"],
+                    name="Media Movil(7d)",
+                    y=rolldoge,
+                    line = dict(color='royalblue')
+                )
+        )
         return figd
-        figd.show()
+        
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -506,6 +549,11 @@ dhbn["date"] = pd.to_datetime(
 )
 #Removemos columnas innecesarias 
 dhbn.drop(["startTime","time"],axis=1, inplace=True)
+#Media movil BNB USD
+rollbn=dhbn["close"].rolling(window=7).mean()
+#Varianza y desviacion BNB
+varianzabnb=dhbn["close"].var()
+desviacionbnbn=np.sqrt(varianzabnb)
 #Volumen total de BTC en las ultimas 24hrs
 volbnb=(dhbn["volume"].iloc[-1])
 #cambio de % con respecto al dia anterior BNB 
@@ -534,11 +582,20 @@ def fbn():
             open=dhbn["open"],
             high=dhbn["high"],
             low=dhbn["low"],
-            close=dhbn["close"]
+            close=dhbn["close"],
+            name="Candlestick(Precio)",
         )
     )
+    figbn.add_trace(
+                go.Scatter(
+                    x=dhbn["date"],
+                    name="Media Movil(7d)",
+                    y=rollbn,
+                    line = dict(color='royalblue')
+                )
+        )
     return figbn
-    figbn.show()
+   
 
 
 
