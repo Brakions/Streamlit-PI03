@@ -6,3 +6,5 @@ La conversion de algunas criptomonedas a divisas fueron hechas con su valor en  
 
 Este proyecto cuenta con 600 lineas  en client.py y 254 en app.py
 
+## Nombre completo:
+Luis Brandon Ramos Aldave
