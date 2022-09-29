@@ -8,3 +8,6 @@ Este proyecto cuenta con 600 lineas  en client.py y 254 en app.py
 
 ## Nombre completo:
 Luis Brandon Ramos Aldave
+
+## Deploy :
+https://brakions-streamlit-pi03-app-3bkee0.streamlitapp.com/
