@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from plotly.subplots import make_subplots
 
 api_url = "https://ftx.com/api"
 api= "/markets"
@@ -309,13 +310,16 @@ def fbtc():
         fig=go.Figure()
 
         #Configuramos el diseño
+        fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 
+               vertical_spacing=0.03, subplot_titles=('', ''), 
+               row_width=[0.2, 0.7])
         fig.update_layout(
             title={
                 "text":f"{base_currency}/{quote_currency}",
                 "x" : 0.5,
                 "xanchor":"center"
             },
-            xaxis_title ="Fecha",
+            xaxis_title ="Volumen",
             yaxis_title = "Precio",
             xaxis_rangeslider_visible=False
         )
@@ -339,6 +343,14 @@ def fbtc():
                     line = dict(color='royalblue')
                 )
         )
+        fig.add_trace(
+        go.Bar(
+        x=dh['date'],
+         y=dh['volume'],
+          showlegend=False),
+           row=2, col=1
+    
+) 
         return fig
         
 
@@ -394,13 +406,16 @@ Veth=round(((dhe["close"].iloc[-1]-dhe["open"].iloc[-1])*100)/dhe["open"].iloc[-
 def feth():
         fige=go.Figure()
         #Configuramos el diseño
+        fige = make_subplots(rows=2, cols=1, shared_xaxes=True, 
+               vertical_spacing=0.03, subplot_titles=('', ''), 
+               row_width=[0.2, 0.7])
         fige.update_layout(
             title={
                 "text":f"{base_currencye}/{quote_currencye}",
                 "x" : 0.5,
                 "xanchor":"center"
             },
-            xaxis_title ="Fecha",
+            xaxis_title ="Volumen",
             yaxis_title = "Precio",
             xaxis_rangeslider_visible=False
         )
@@ -423,6 +438,14 @@ def feth():
                     y=rolleth,
                     line = dict(color='royalblue')
                 )
+        )
+        fige.add_trace(
+            go.Bar(
+                x=dhe['date'],
+                y=dhe['volume'],
+                showlegend=False),
+                row=2, col=1
+    
         )
         return fige
         
@@ -479,13 +502,16 @@ Vdoge=round(((dhd["close"].iloc[-1]-dhd["open"].iloc[-1])*100)/dhd["open"].iloc[
 def fdoge():
         figd=go.Figure()
         #Configuramos el diseño
+        figd = make_subplots(rows=2, cols=1, shared_xaxes=True, 
+               vertical_spacing=0.03, subplot_titles=('', ''), 
+               row_width=[0.2, 0.7])
         figd.update_layout(
             title={
                 "text":f"{base_currencyd}/{quote_currencyd}",
                 "x" : 0.5,
                 "xanchor":"center"
             },
-            xaxis_title ="Fecha",
+            xaxis_title ="Volumen",
             yaxis_title = "Precio",
             xaxis_rangeslider_visible=False
         )
@@ -508,6 +534,14 @@ def fdoge():
                     y=rolldoge,
                     line = dict(color='royalblue')
                 )
+        )
+        figd.add_trace(
+            go.Bar(
+                x=dhd['date'],
+                y=dhd['volume'],
+                showlegend=False),
+                row=2, col=1
+    
         )
         return figd
         
@@ -564,13 +598,16 @@ Vbnb=round(((dhbn["close"].iloc[-1]-dhbn["open"].iloc[-1])*100)/dhbn["open"].ilo
 def fbn():
     figbn=go.Figure()
     #Configuramos el diseño
+    figbn = make_subplots(rows=2, cols=1, shared_xaxes=True, 
+               vertical_spacing=0.03, subplot_titles=('', ''), 
+               row_width=[0.2, 0.7])
     figbn.update_layout(
         title={
             "text":f"{base_currencybn}/{quote_currencybn}",
             "x" : 0.5,
             "xanchor":"center"
         },
-        xaxis_title ="Fecha",
+        xaxis_title ="Volumen",
         yaxis_title = "Precio",
         xaxis_rangeslider_visible=False
     )
@@ -593,6 +630,14 @@ def fbn():
                     y=rollbn,
                     line = dict(color='royalblue')
                 )
+        )
+    figbn.add_trace(
+            go.Bar(
+                x=dhbn['date'],
+                y=dhbn['volume'],
+                showlegend=False),
+                row=2, col=1
+    
         )
     return figbn
    
